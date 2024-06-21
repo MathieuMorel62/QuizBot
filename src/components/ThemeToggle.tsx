@@ -4,19 +4,17 @@ import * as React from "react"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 
+// Composant ThemeToggle pour le changement de thème
 export function ThemeToggle({
   className, ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
+  // Récupération de la fonction de changement de thème
   const { setTheme } = useTheme()
 
+  // Rendu du composant ThemeToggle
   return (
     <div className={className} {...props}>
       <DropdownMenu>
