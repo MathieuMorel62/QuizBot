@@ -1,19 +1,24 @@
 'use client'
 
-import { User } from 'next-auth'
 import React from 'react'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu'
 import Link from 'next/link'
-import { signOut } from 'next-auth/react'
 import UserAvatar from './UserAvatar'
+import { User } from 'next-auth'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu'
+import { signOut } from 'next-auth/react'
 import { LogOut } from 'lucide-react'
 
 
+// Propriétés du composant UserAccountNav
 type Props = {
   user: Pick<User, "name" | "image" | "email"> 
 }
 
+
+// Composant UserAccountNav pour la navigation de l'utilisateur connecté
 const UserAccountNav = ({user}: Props) => {
+
+  // Rendu du composant UserAccountNav
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -33,23 +38,20 @@ const UserAccountNav = ({user}: Props) => {
             }
           </div>
         </div>
-
-      <DropdownMenuSeparator />
-      <DropdownMenuItem asChild>
-        <Link href='/'>test Bonjour</Link>
-      </DropdownMenuItem>
-
-      <DropdownMenuSeparator />
-      <DropdownMenuItem onClick={(e) => {
-          e.preventDefault();
-          signOut().catch(console.error);
-        }}
-        className='text-red-600 cursor-pointer'
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link href='/'>test Bonjour</Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={(e) => {
+            e.preventDefault();
+            signOut().catch(console.error);
+          }}
+          className='text-red-600 cursor-pointer'
         >
-        Déconnection
-        <LogOut className='w-4 h-4 ml-2' />
-      </DropdownMenuItem>
-
+          Déconnection
+          <LogOut className='w-4 h-4 ml-2' />
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
