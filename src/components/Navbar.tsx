@@ -2,6 +2,8 @@ import Link from 'next/link'
 import React from 'react'
 import SignInButton from './SignInButton'
 import { getAuthSession } from '@/lib/nextauth'
+import UserAccountNav from './UserAccountNav'
+import { ThemeToggle } from './ThemeToggle'
 
 
 type Props = {}
@@ -9,7 +11,7 @@ type Props = {}
 const Navbar = async (props: Props) => {
   const session = await getAuthSession()
   return (
-    <div className='fixed inset-x-0 top-0 bg-white dark:bg-gray-950 z-[10] h-auto border-b border-zinc-300 py-2'>
+    <div className='fixed inset-x-0 top-0 bg-white dark:bg-gray-950 z-[10] h-auto border-b border-zinc-300 py-2 dark:text-white'>
       <div className='flex items-center justify-between h-full gap-2 px-8 mx-auto max-w-7xl'>
         {/* LOGO */}
         <Link href="/" className='flex items-center gap-2'>
@@ -18,11 +20,14 @@ const Navbar = async (props: Props) => {
           </p>
         </Link>
         <div className='flex items-center'>
+          <ThemeToggle className='mr-3' />
+        <div className='flex items-center'>
           {session?.user ? (
-            <h1>Welcome {session.user.name}</h1>
-          ) : (
-          <SignInButton text='Sign In' />
-          )}
+            <UserAccountNav user={session.user} />
+            ) : (
+              <SignInButton text='Connexion' />
+            )}
+          </div>
         </div>
       </div>
     </div>
