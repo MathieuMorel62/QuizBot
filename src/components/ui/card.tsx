@@ -1,7 +1,8 @@
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
 
+
+// Définition du composant Card
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -17,6 +18,8 @@ const Card = React.forwardRef<
 ))
 Card.displayName = "Card"
 
+
+// Définition du composant CardHeader
 const CardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -29,6 +32,8 @@ const CardHeader = React.forwardRef<
 ))
 CardHeader.displayName = "CardHeader"
 
+
+// Définition du composant CardTitle
 const CardTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
@@ -41,6 +46,8 @@ const CardTitle = React.forwardRef<
 ))
 CardTitle.displayName = "CardTitle"
 
+
+// Définition du composant CardDescription
 const CardDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
@@ -53,6 +60,8 @@ const CardDescription = React.forwardRef<
 ))
 CardDescription.displayName = "CardDescription"
 
+
+// Définition du composant CardContent
 const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -61,6 +70,8 @@ const CardContent = React.forwardRef<
 ))
 CardContent.displayName = "CardContent"
 
+
+// Définition du composant CardFooter
 const CardFooter = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
