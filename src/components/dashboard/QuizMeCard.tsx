@@ -8,8 +8,12 @@ import { useRouter } from 'next/navigation'
 
 type Props = {}
 
+
+// Composant de la carte QuizMe
 const QuizMeCard = (props: Props) => {
   const router = useRouter();
+
+  // Affichage de la carte QuizMe
   return (
     <Card
       className='hover:cursor-pointer hover:opacity-75'
