@@ -8,8 +8,12 @@ import { useRouter } from 'next/navigation'
 
 type Props = {}
 
+
+// Composant de la carte d'historique
 const HistoryCard = (props: Props) => {
   const router = useRouter();
+
+  // Affichage de la carte d'historique
   return (
    <Card className='hover:cursor-pointer hover:opacity-75'
     onClick={() => {
