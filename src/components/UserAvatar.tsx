@@ -4,11 +4,16 @@ import { Avatar, AvatarFallback } from './ui/avatar'
 import Image from 'next/image'
 
 
+// Propriétés du composant UserAvatar
 type Props = {
   user: Pick<User, "name" | "image">
 }
 
+
+// Composant UserAvatar pour l'avatar utilisateur
 const UserAvatar = ({user}: Props) => {
+
+  // Rendu du composant UserAvatar
   return (
     <Avatar>
       {user.image ? (
@@ -18,7 +23,6 @@ const UserAvatar = ({user}: Props) => {
             src={user.image}
             alt='Profile Image'
             referrerPolicy='no-referrer'
-            /*sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"*/
           />
         </div>
       ): (
