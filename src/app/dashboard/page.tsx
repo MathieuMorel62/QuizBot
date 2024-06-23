@@ -2,13 +2,15 @@ import { getAuthSession } from '@/lib/nextauth'
 import { redirect } from 'next/navigation'
 import QuizMeCard from '@/components/dashboard/QuizMeCard'
 import HistoryCard from '@/components/dashboard/HistoryCard'
-import HotTopicsCard from './HotTopicsCard'
 import RecentActivities from './RecentActivities'
+import dynamic from 'next/dynamic'
 import React from 'react'
 
 
 type Props = {}
 
+// Composant dynamique pour le chargement de HotTopicsCard
+const HotTopicsCard = dynamic(() => import('./HotTopicsCard'), { ssr: false })
 
 // Métadonnées de la page
 const metadata = {
