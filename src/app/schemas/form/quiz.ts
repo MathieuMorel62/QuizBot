@@ -7,3 +7,9 @@ export const quizCreationSchema = z.object({
   type: z.enum(['mcq', 'open_ended']),
   amount: z.number().min(1).max(10),
 })
+
+// Schéma de validation pour la création de questions
+export const checkAnswerSchema = z.object({
+  questionId: z.string(),
+  userAnswer: z.string(),
+})
