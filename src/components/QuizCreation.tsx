@@ -2,27 +2,44 @@
 
 import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
-import {useForm} from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { quizCreationSchema } from '../app/schemas/form/quiz'
 import { z } from 'zod'
-import {zodResolver} from '@hookform/resolvers/zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormDescription, FormField, FormItem, FormLabel, FormMessage, FormControl } from './ui/form'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { BookOpen, CopyCheck } from 'lucide-react'
 import { Separator } from './ui/separator'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 
 type Props = {}
 
-
-// Définition du type Input basé sur le schéma de validation
+// Type pour l'entrée du formulaire
 type Input = z.infer<typeof quizCreationSchema>
 
-
-// Composant QuizCreation pour la création de quiz
+// Composant principal pour la création de quiz
 const QuizCreation = (props: Props) => {
-  // Initialisation du formulaire
+  const router = useRouter()
+
+  // Utilisation de useMutation pour gérer la mutation asynchrone
+  const { mutate: getQuestions, status } = useMutation({
+    mutationFn: async ({ amount, topic, type }: Input) => {
+      console.log('Requesting questions:', { amount, topic, type });
+      const response = await axios.post('/api/game', {
+        amount,
+        topic,
+        type
+      });
+      console.log('Received response:', response.data);
+      return response.data
+    }
+  })
+
+  // Initialisation du formulaire avec react-hook-form et zod pour la validation
   const form = useForm<Input>({
     resolver: zodResolver(quizCreationSchema),
     defaultValues: {
@@ -34,13 +51,27 @@ const QuizCreation = (props: Props) => {
 
   // Fonction de soumission du formulaire
   function onSubmit(input: Input) {
-    alert(JSON.stringify(input, null, 2))
+    getQuestions({
+      amount: input.amount,
+      topic: input.topic,
+      type: input.type
+    }, {
+      onSuccess: ({ gameId }) => {
+        if (form.getValues('type') == 'open_ended') {
+          router.push(`/play/open-ended/${gameId}`);
+        } else {
+          router.push(`/play/mcq/${gameId}`);
+        }
+      },
+    })
   }
 
-  // Changement de la valeur du type de question
+  // Surveillance des changements de formulaire
   form.watch();
 
-  // Rendu du composant QuizCreation
+  // Vérification de l'état de chargement
+  const isLoading = status === 'pending';
+
   return (
     <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
       <Card>
@@ -113,7 +144,9 @@ const QuizCreation = (props: Props) => {
                   <BookOpen className='w-4 h-4 mr-2' /> Ouvert à tous
                 </Button>
               </div>
-              <Button type="submit">Soumettre</Button>
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? 'Chargement...' : 'Soumettre'}
+              </Button>
             </form>
           </Form>
         </CardContent>
